@@ -4,9 +4,14 @@ const mongoose = require('mongoose');
 
 const ItemModel = require('../models/itemModel');
 
-router.get('/', (req, res) => {
-  res.status(200);
-  res.send('Router works');
+router.get('/', async (req, res) => {
+  try {
+    const items = await ItemModel.find();
+    res.status(200);
+    res.send(items);
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 router.post('/', (req, res) => {
