@@ -14,22 +14,19 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   const item = new ItemModel({
     header: req.body.header,
     content: req.body.content,
   });
-  item.save()
-    .then((response) => {
-      console.log(response);
-      res.status(200);
-      res.send(item);
-    })
-    .catch(err => {
-      console.log(err);
-    })
-
-  
+  try {
+    const result = await item.save();
+    console.log(result);
+    res.status(200);
+    res.send(item);
+  } catch (error) {
+    console.log(error);
+  }
 })
 
 
